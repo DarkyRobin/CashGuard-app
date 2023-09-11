@@ -1,15 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
+import InputForm from './common/InputForm';
 
-const Login = () => {
+const Login = (props) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
-    <form>
-      <label htmlFor="username">Username</label>
-      <input type="text" name="Uspaswordername" id="username" />
-      <label htmlFor="password">Password</label>
-      <input type="password" name="password" id="password" />
-      <button type="button" id='submit'>Login</button>
-      <p><a href="">Forgot password?</a></p>
+      <form>
+        <InputForm
+          label='Email'
+          type ='text'
+          value = {username}
+        />
+
+        <InputForm
+          label='Password'
+          type ='password'
+          value = {password}
+        />
     </form>
+    
   )
 }
 
