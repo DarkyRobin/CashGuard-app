@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import InputForm from './common/InputForm';
+import { validateUsername, validatePassword } from './common/Helpers';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -15,6 +17,9 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const usernameError = validateUsername(username);
+    const passwordError = validatePassword(username, password);
+    console.log(passwordError)
     console.log('Username:', username);
     console.log('Password:', password);
   };
