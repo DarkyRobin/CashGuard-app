@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'  
+import React, { useEffect, useState } from 'react'  
 import Login from './components/Login'
+
 import './assets/css/style.css'
 
 function App() {
@@ -17,6 +18,9 @@ function App() {
     localStorage.setItem('user', JSON.stringify(userData))
   },[])
 
+  const [currentPage, setCurrentPage] = useState('login')
+  const [loggedInUser, setLoggedInUser] = useState(null)
+  console.log(loggedInUser)
   
   return (
     <>

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import InputForm from './common/InputForm';
-import { validateUsername, validatePassword } from './common/Helpers';
+import {  validateAccount } from './common/Helpers';
 
-const Login = () => {
+const Login = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
-
+  const [message, setMessage] = useState('');
+  const {setCurrentPage, setLoggedInUser} = props;
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   }
@@ -17,11 +17,14 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const usernameError = validateUsername(username);
-    const passwordError = validatePassword(username, password);
-    console.log(passwordError)
-    console.log('Username:', username);
-    console.log('Password:', password);
+    const validation = validateAccount(username, password);
+    const msg = validation.msg;
+    setMessage(msg)
+    console.log(validation.status);
+    if(validation.status === 1) {
+      setLoggedInUser(username);
+      setCurrentPage('dashboard');
+    }
   };
 
   return (
@@ -47,6 +50,7 @@ const Login = () => {
           >
             Log In
           </button>
+          {message && (<small className="text-red-700">{message}</small>)}
     </form>
     </div>
   )
