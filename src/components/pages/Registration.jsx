@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import InputForm from '../common/InputForm';
+import { InputField, Button } from '../common/InputForm';
 import {  useNavigate } from 'react-router-dom';
 import {  validateRules } from '../common/Helpers';
 
@@ -40,7 +40,7 @@ const Registration = (props) => {
   return (
     <div className="flex justify-center items-center h-screen">
       <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/3">
-        <InputForm
+        <InputField
           id='username'
           type="text"
           placeholder="Username"
@@ -48,7 +48,7 @@ const Registration = (props) => {
           onChange={handleUsernameChange}
         />
 
-        <InputForm
+        <InputField
           id='password'
           type="password"
           placeholder="Password"
@@ -56,7 +56,7 @@ const Registration = (props) => {
           onChange={handlePasswordChange}
         />
 
-        <InputForm
+        <InputField
           id='confrmpassword'
           type="password"
           placeholder="Confirm Password"
@@ -64,13 +64,7 @@ const Registration = (props) => {
           onChange={handleConfirmPasswordChange}
         />
 
-        <button
-          className="bg-sky-500 hover:bg-sky-700 ..."
-          type="button"
-          onClick={handleSubmit}
-        >
-          Sign Up
-        </button>
+        <Button onClick={handleSubmit} id="signup" label="Sign Up" />
         <br />
         {message && <small className="text-red-700">{message}</small>}
       </form>
