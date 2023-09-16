@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 const Header = (props) => {
-  const { user } = props
-  
+  const { user } = props;
+
   return (
     <>
-      <h1>Welcome, {user} </h1>
+      <header className="flex justify-between items-center bg-blue-300 p-4">
+        <div className="flex">Logo Here</div>
+        <div className="flex">Log Out</div>
+      </header>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { InputField, Button } from "../common/InputForm";
 import { validateAccount } from "../common/Helpers";
+import "../../assets/css/style.css";
 
 const Login = (props) => {
   const [username, setUsername] = useState("");
