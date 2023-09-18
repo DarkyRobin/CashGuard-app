@@ -2,6 +2,7 @@ import React from "react";
 
 export const InputField = (props) => {
   const { type, placeholder, value, onChange, id } = props;
+  
   return (
     <div className="mb-4">
       <input
@@ -18,6 +19,7 @@ export const InputField = (props) => {
 
 export const Button = (props) => {
   const { label, onClick, id } = props;
+
   return (
     <div className="mb-4">
       <button
@@ -28,6 +30,22 @@ export const Button = (props) => {
       >
         {label}
       </button>
+    </div>
+  );
+};
+
+export const TransactionHistory = (props) => {
+  const { transaction, amount, date, time } = props;
+
+  return (
+    <div className=" flex flex-col gap-3 pt-3">
+      <div className="flex justify-between text-sm">
+        <div>{ transaction }</div>
+        <div><span>&#8369;</span>{ amount }</div>
+      </div>
+      <div className="flex justify-between text-xs">
+        <span>{ date } { time }</span>
+      </div>
     </div>
   );
 };

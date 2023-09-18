@@ -65,7 +65,7 @@ export const validateRules = (username, password, confirmPassword) => {
   } else {
     const newUser = {username: username, password:password};
     accounts.push(newUser);
-    localStorage.setItem('users', JSON.stringify(accounts));
+    localStorage.setItem('users', JSON.stringify(accounts));                                                                 
     return {status: 1, msg:'User successfully registered.'};
   }
 }
