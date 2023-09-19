@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Header from "../common/Header";
-import Sidebar from "../common/Sidebar";
-import Main from "../common/Main";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+import Main from "../components/Main";
 
 const Dashboard = (props) => {
-  const { user } = props;
+  const { user, uuid } = props;
 
   return (
-    <>
+    <> 
       <div className="flex h-screen">
         <div className="flex-1 flex flex-col overflow-hidden">
           <Header />

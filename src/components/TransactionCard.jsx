@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { InputField, Button, TransactionHistory } from "../common/InputForm";
+import { InputField, Button, TransactionHistory } from "./InputForm";
 
 const TransactionCard = (props) => {
   const { user } = props;

@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { InputField, Button } from "../common/InputForm";
+import { InputField, Button } from "./InputForm";
 
 const BalanceCard = (props) => {
   const { user } = props;
 
   const handleCashInClick = (e) => {
+    e.preventDefault();
     console.log("Cash in clicked")
   }
 
   const handleCashoutClick = (e) => {
+    e.preventDefault();
     console.log("Cash out clicked")
   }
   return (

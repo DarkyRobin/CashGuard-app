@@ -21,11 +21,11 @@ export const validateAccount = (username, password) => {
   if(!user) {
     return {status:0 , msg:'Username and password did not match.'};
   } else {
-    return {status:1, msg:'Login successful.'};
+    return {status:1, msg:'Login successful.', uuid:user.uuid};
   } 
 }
 
-export const validateRules = (username, password, confirmPassword) => {
+export const validateRules = (username, password, confirmPassword, uuid) => {
   //If user is empty
   if(!username) {
     return {status:0, msg:'Username is required.'};
@@ -63,7 +63,7 @@ export const validateRules = (username, password, confirmPassword) => {
   if (!doPasswordsMatch(password, confirmPassword)) {
     return {status: 0, msg:'Password does not match.'};
   } else {
-    const newUser = {username: username, password:password};
+    const newUser = { username: username, password:password, uuid:uuid };
     accounts.push(newUser);
     localStorage.setItem('users', JSON.stringify(accounts));                                                                 
     return {status: 1, msg:'User successfully registered.'};

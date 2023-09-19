@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { InputField, Button } from "../common/InputForm";
-import { validateAccount } from "../common/Helpers";
-import "../../assets/css/style.css";
+import { InputField, Button } from "../components/InputForm";
+import { validateAccount } from "../modules/Authentication";
+import "../assets/css/style.css";
 
 const Login = (props) => {
   const [username, setUsername] = useState("");
@@ -23,9 +23,9 @@ const Login = (props) => {
     const validation = validateAccount(username, password);
     const msg = validation.msg;
     setMessage(msg);
-    console.log(validation);
     if (validation.status === 1) {
-      setLoggedInUser(username);
+      const user = { username:username, uuid:validation.uuid }
+      setLoggedInUser(user);
     }
   };
 

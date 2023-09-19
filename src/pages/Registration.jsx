@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { InputField, Button } from '../common/InputForm';
+import { InputField, Button } from '../components/InputForm';
 import {  useNavigate } from 'react-router-dom';
-import {  validateRules } from '../common/Helpers';
+import {  validateRules } from '../modules/Authentication';
+import { v4 as uuidv4 } from 'uuid';
 
 const Registration = (props) => {
   const [username, setUsername] = useState('');
@@ -24,7 +25,7 @@ const Registration = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const validation = validateRules(username, password, confirmpassword);
+    const validation = validateRules(username, password, confirmpassword, uuidv4());
     const msg = validation.msg;
     setMessage(msg);
     if(validation.status === 1) {
