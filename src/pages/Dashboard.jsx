@@ -13,7 +13,7 @@ const Dashboard = (props) => {
           <Header />
           <div className="flex h-full">
             <Sidebar user={user} />
-            <Main />
+            <Main user={ user } uuid={ uuid }/>
           </div>
         </div>
       </div>

@@ -18,17 +18,34 @@ export const InputField = (props) => {
 };
 
 export const Button = (props) => {
-  const { label, onClick, id } = props;
+  const { label, onClick, id, type } = props;
 
   return (
     <div className="mb-4">
       <button
-        type="button"
+        type={ type }
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={onClick}
-        id={id}
+        onClick={ onClick }
+        id={ id }
       >
         {label}
+      </button>
+    </div>
+  );
+};
+
+export const ButtonCancel = (props) => {
+  const { label, onClick, id, type } = props;
+
+  return (
+    <div className="mb-4">
+      <button
+        type= { type }
+        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+        onClick={ onClick }
+        id={ id }
+      >
+        { label }
       </button>
     </div>
   );

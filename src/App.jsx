@@ -25,6 +25,30 @@ function App() {
       },
     ];
     localStorage.setItem("users", JSON.stringify(userData));
+
+    const accounts = [
+      {
+        id: 1,
+        uuid: "a0b1b08f-03c0-4892-9256-5a85d333bd9c",
+        balance: 1000,
+        status: 'Active'
+      }
+    ];
+    localStorage.setItem("accounts", JSON.stringify(accounts));
+
+    const transactions = [
+      {
+        id: 1,
+        account_id: 1,
+        uuid:' a0b1b08f-03c0-4892-9256-5a85d333bd9c',
+        transaction_type: 'deposit',
+        description: 'Send cash to Ranchodas',
+        amount: 100,
+        date: '09-20-2023',
+        time: '11:02 AM'
+      }
+    ];
+    localStorage.setItem("transactions", JSON.stringify(transactions));
   }, []);
 
   const [loggedInUser, setLoggedInUser] = useState({username:'', uuid:null});
