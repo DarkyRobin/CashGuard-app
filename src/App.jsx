@@ -51,14 +51,14 @@ function App() {
     localStorage.setItem("transactions", JSON.stringify(transactions));
   }, []);
 
-  const [loggedInUser, setLoggedInUser] = useState({username:'', uuid:null});
+  const [loggedInUser, setLoggedInUser] = useState({username:null, uuid:null});
   
   return (
     <Router>
       <Routes>
         <Route path="/login" element={ loggedInUser.username ? (<Navigate to="/" />) : ( <Login setLoggedInUser={setLoggedInUser} />)}/>
         <Route path="/signup" element={ loggedInUser.username ? (<Navigate to="/" />) : ( <Registration setLoggedInUser={setLoggedInUser} />)}/>
-        <Route path="/" element={loggedInUser ? (<Dashboard user={loggedInUser.username} uuid={loggedInUser.uuid} />) : (<Navigate to="/login" />)}/>
+        <Route path="/" element={loggedInUser.username ? (<Dashboard user={loggedInUser.username} uuid={loggedInUser.uuid} />) : (<Navigate to="/login" />)}/>
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

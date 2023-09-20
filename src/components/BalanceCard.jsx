@@ -14,13 +14,8 @@ const BalanceCard = (props) => {
     setModalOpen(true);
   }
 
-  const closeModal = () => {
+  const closeModal = (e) => {
     setModalOpen(false);
-  }
-
-  const handleTransaction = (e) => {
-    e.preventDefault();
-    
   }
 
   return (
@@ -36,8 +31,8 @@ const BalanceCard = (props) => {
         <TransactionModal 
           isOpen = { isModalOpen }
           onClose={ closeModal }
-          onTransaction={ handleTransaction }
           operation={ selectedOperation }
+          currentAccount={ account }
           />
       </div>
     </>

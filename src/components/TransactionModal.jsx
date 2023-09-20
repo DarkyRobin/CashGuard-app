@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Button, ButtonCancel, InputField } from "./InputForm";
-import { validateAmount } from "../modules/AccountHandler";
+import { transactAccount, validateAmount } from "../modules/AccountHandler";
 
 const TransactionModal = (props) => {
-  const { isOpen, onClose, onTransaction, operation } = props;
+  const { isOpen, onClose, operation, currentAccount } = props;
   const [amount, setAmount] = useState(0);
   const [message, setMessage] = useState("");
-
+  
   const onchangeAmount = (e) => {
     e.preventDefault();
     setAmount(e.target.value)
@@ -18,16 +18,21 @@ const TransactionModal = (props) => {
     setMessage(msg);
     console.log(validation.msg)
     if(validation.status === 1) {
-      setAmount("");
-      setMessage("")
+      transactAccount(currentAccount.id, parseFloat(currentAccount.balance), parseFloat(amount), operation);
+      clearValues();
       onClose();
     }
+  };
+
+  const clearValues = () => {
     setAmount("");
-    
+    setMessage("");
+    onClose();
+  }
+
+      
     // Call the onDeposit function to handle the deposit
     // onTransaction(parseFloat(amount));
-    
-  };
   return (
     <div className={`fixed inset-0 flex items-center justify-center z-50 ${isOpen ? "block" : "hidden"}`}>
       <div className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
@@ -35,23 +40,23 @@ const TransactionModal = (props) => {
         <div className="modal-content py-4 text-left px-6">
           <div className="flex justify-between items-center pb-3">
             <p className="text-2xl font-bold">{ operation === 'send' ? 'Send' : operation === 'deposit' ? "Deposit" : 'Withdraw'}</p>
-            <button className="modal-close cursor-pointer z-50" onClick={onClose}>&times;</button>
+            <button className="modal-close cursor-pointer z-50" onClick={ clearValues }>&times;</button>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={ handleSubmit }>
             <div className="mb-4">
               <InputField 
                 id="amount"
                 type="number"
                 placeholder="Amount"
-                value={amount}
-                onChange={onchangeAmount}
+                value={ amount }
+                onChange={ onchangeAmount }
               />
               { message && <small className="text-red-700">{message}</small> }
             </div>
 
             <div className="flex items-center justify-end mt-4 gap-3">
-              <ButtonCancel onClick={onClose} id="close" label="Cancel" />
+              <ButtonCancel onClick={ clearValues } id="close" label="Cancel" type='button'/>
               <div className="mb-4">
                 <button
                   type="submit"
