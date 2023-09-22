@@ -26,7 +26,7 @@ const BalanceCard = (props) => {
         <div className=" flex flex-row justify-center gap-3 pt-3">
           <Button onClick={ openModal } id="send" label="Send"/>
           <Button onClick={ openModal } id="deposit" label="Deposit"/>
-          <Button onClick={ openModal } id="widthraw" label="Withdraw"/>
+          <Button onClick={ openModal } id="withdraw" label="Withdraw"/>
         </div>
         <TransactionModal 
           isOpen = { isModalOpen }
