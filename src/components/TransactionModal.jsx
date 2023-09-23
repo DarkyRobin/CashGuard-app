@@ -6,9 +6,8 @@ const TransactionModal = (props) => {
   const { isOpen, onClose, operation, currentAccount } = props;
   const [amount, setAmount] = useState(0);
   const [message, setMessage] = useState("");
-  const [isVisible, setVisible] = useState(true);
   const [accountRecipient, setAccountRecipient] = useState("");
-
+  
   const onchangeAmount = (e) => {
     e.preventDefault();
     setAmount(e.target.value)
@@ -23,13 +22,13 @@ const TransactionModal = (props) => {
     e.preventDefault();
 
     //Validates entry first before proceeding
-    const validation = validateAmount(parseFloat(amount), operation, parseFloat(currentAccount.balance));
+    const validation = validateAmount(parseFloat(amount), operation, parseFloat(currentAccount.balance), parseFloat(accountRecipient));
     const msg = validation.msg;
     setMessage(msg);
 
     //Validation status=1 is true then call function transactAccount
     if(validation.status === 1) {
-      transactAccount(currentAccount.id, parseFloat(currentAccount.balance), parseFloat(amount), operation);
+      transactAccount(currentAccount.id, parseFloat(currentAccount.balance), parseFloat(amount), operation, parseFloat(accountRecipient));
       clearValues();
       onClose();
     }
@@ -38,6 +37,7 @@ const TransactionModal = (props) => {
   const clearValues = () => {
     setAmount("");
     setMessage("");
+    setAccountRecipient("");
     onClose();
   }
 
@@ -63,7 +63,7 @@ const TransactionModal = (props) => {
                 value={ amount }
                 onChange={ onchangeAmount }
               />
-              { isVisible &&  
+              { operation === 'send' &&  
                 <InputField 
                   id="recipientAccount"
                   type="number"

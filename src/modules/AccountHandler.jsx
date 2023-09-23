@@ -6,8 +6,9 @@ export const getAccount = (uuid) => {
   return account;
 };
 
-export const validateAmount = (amount, operation, balance) => {
-  console.log(operation, balance);
+export const validateAmount = (amount, operation, balance, recipient_acct_id) => {
+  const accountsArr = JSON.parse(localStorage.getItem("accounts") || []);
+ 
   if (!amount) {
     return { status: 0, msg: "Please enter amount." };
   }
@@ -19,18 +20,35 @@ export const validateAmount = (amount, operation, balance) => {
     return { status: 0, msg: "Insufficient funds" };
   }
 
+  if (recipient_acct_id) {
+    const recipientExist = accountsArr.findIndex((recipient) => recipient.id === recipient_acct_id);
+
+    if (recipientExist === -1) {
+      return { status: 0, msg: "Transcation Failed. Please try again." };
+    }
+  }
+
   return { status: 1, msg: "Successful." };
 };
 
-export const transactAccount = (account_id, balance, amount, operation) => {
-  console.log(account_id, balance, amount, operation);
+export const transactAccount = (
+  account_id,
+  balance,
+  amount,
+  operation,
+  recipient_acct_id
+) => {
   const accountsArr = JSON.parse(localStorage.getItem("accounts") || []);
-  const accountExists = accountsArr.findIndex(
-    (account) => account.id === account_id
-  );
+  const accountExists = accountsArr.findIndex((account) => account.id === account_id);
   if (accountExists !== -1) {
     switch (operation) {
-      case "send":
+      case "send": {
+        const recipient = accountsArr.findIndex((recipient) => recipient.id === recipient_acct_id);
+        console.log(recipient)
+        accountsArr[recipient].balance = balance + amount;
+        accountsArr[accountExists].balance = balance - amount;
+      }
+
         break;
 
       case "deposit":

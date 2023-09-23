@@ -32,8 +32,15 @@ function App() {
         uuid: "a0b1b08f-03c0-4892-9256-5a85d333bd9c",
         balance: 1000,
         status: 'Active'
+      },
+      {
+        id: 2,
+        uuid: "08320b4f-2f50-401b-a489-1d0e97a9d03c",
+        balance: 2000,
+        status: 'Active'
       }
     ];
+    
     localStorage.setItem("accounts", JSON.stringify(accounts));
 
     const transactions = [
