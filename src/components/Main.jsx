@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import BalanceCard from "./BalanceCard";
 import TransactionCard from "./TransactionCard";
-
 const Main = (props) => {
   const { user, uuid } = props;
 

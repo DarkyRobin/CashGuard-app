@@ -43,8 +43,8 @@ export const validateRules = (username, password, confirmPassword, uuid) => {
 
   
   // If the username exists in accounts
-  const accounts = JSON.parse(localStorage.getItem('users') || []);
-  const userExists = accounts.some((user) => user.username === username);
+  const user_accounts = JSON.parse(localStorage.getItem('users') || []);
+  const userExists = user_accounts.some((user) => user.username === username);
 
   if (userExists) {
     return {status:0, msg:'Username not available.'};
@@ -63,9 +63,9 @@ export const validateRules = (username, password, confirmPassword, uuid) => {
   if (!doPasswordsMatch(password, confirmPassword)) {
     return {status: 0, msg:'Password does not match.'};
   } else {
-    const newUser = { username: username, password:password, uuid:uuid };
-    accounts.push(newUser);
-    localStorage.setItem('users', JSON.stringify(accounts));                                                                 
+    const newUser = { uuid:uuid, username: username, password:password };
+    user_accounts.push(newUser);
+    localStorage.setItem('users', JSON.stringify(user_accounts));                                                                 
     return {status: 1, msg:'User successfully registered.'};
   }
 }
