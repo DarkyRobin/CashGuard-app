@@ -93,6 +93,7 @@ export const transactAccount = (
 
           // Store the updated accounts array in localStorage
           localStorage.setItem("accounts", JSON.stringify(updatedAccountsArr));
+          TransactionLog(operation, recipientAccount, senderAccount, amount)
         }
         break;
 
@@ -109,6 +110,9 @@ export const transactAccount = (
 
           // Store the updated accounts array in localStorage
           localStorage.setItem("accounts", JSON.stringify(updatedAccountsArr));
+
+          //Log transaction
+          
         }
 
         break;
@@ -136,3 +140,33 @@ export const transactAccount = (
     }
   }
 };
+
+export const TransactionLog = (operation, recipient, account, amount) => {
+  console.log(operation, recipient, account, amount)
+  const createAutoNumberIdGenerator = (localStorageKey) => {
+    let counter = parseInt(localStorage.getItem(localStorageKey)) || 0;
+  
+    return () => {
+      counter++;
+      localStorage.setItem(localStorageKey, counter.toString());
+      return counter;
+    };
+  };
+  
+  switch (operation) {
+    case 'send': {
+      
+    }
+    break;
+  
+    case 'deeposit':
+    break;
+
+    case 'withdraw':
+    break;
+
+    default:
+      break;
+    
+  }
+}
