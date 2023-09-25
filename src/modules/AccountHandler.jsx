@@ -8,10 +8,11 @@ const generateAccountID = () => {
 };
 
 const autoID = (localStorageKey) => {
-  let counter = parseInt(localStorage.getItem(localStorageKey)) || 0;
+  let counter = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+  let count = counter.length;
   return () => {
-    counter++;
-    return counter;
+    count++;
+    return count;
   };
 };
 
@@ -159,29 +160,32 @@ export const transactAccount = (
 };
 
 export const TransactionLog = (operation, recipient, account, amount) => {
-  console.log(operation, recipient, account, amount);
-  const localStorage = "transactions";
-  const transaction_id = autoID(localStorage);
-  const transactionDate = new Date();
-  const senderAccount = getUser(account.uuid);
+  let localStorageKey = "transactions";
+  let transactionDate = new Date();
   const recipientAccount = getUser(recipient.uuid);
-
-  console.log(senderAccount, recipientAccount);
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+  const transactions = JSON.parse(localStorage.getItem(localStorageKey) || "[]");
+  const transaction_id = autoID(localStorageKey);
 
   const transaction = {
     id: transaction_id(),
-    account_name: account.id,
-    recepient_name: recipient.id,
+    account_id: account.id,
+    recepient_id: recipient.id,
     amount: amount,
-    date: transactionDate.toLocaleDateString(),
+    date: transactionDate.toLocaleDateString('en-US', options),
     time: transactionDate.toLocaleTimeString(),
     transaction_type: operation,
-    description: ()=> {
-      return ``
-    }
+    description: 
+      operation === "send" ? `Send cash to ${ recipientAccount.username }`: 
+      operation === "deposit" ? "Deposit" : "Withdrawal"
   };
 
-  console.log(transaction);
+  transactions.push(transaction);
+  localStorage.setItem(localStorageKey, JSON.stringify(transactions));
+}
 
-  
-};
+export const getTransactionLogs = (account_id) => {
+  const transactions = JSON.parse(localStorage.getItem("transactions") || []);
+  const transaction_logs = transactions.filter((log) => log.account_id === account_id);
+  return transaction_logs;
+}

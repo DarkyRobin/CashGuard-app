@@ -2,7 +2,7 @@ import React from "react";
 
 export const InputField = (props) => {
   const { type, placeholder, value, onChange, id } = props;
-  
+
   return (
     <div className="mb-4">
       <input
@@ -23,10 +23,10 @@ export const Button = (props) => {
   return (
     <div className="mb-4">
       <button
-        type={ type }
+        type={type}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={ onClick }
-        id={ id }
+        onClick={onClick}
+        id={id}
       >
         {label}
       </button>
@@ -40,12 +40,12 @@ export const ButtonCancel = (props) => {
   return (
     <div className="mb-4">
       <button
-        type= { type }
+        type={type}
         className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-        onClick={ onClick }
-        id={ id }
+        onClick={onClick}
+        id={id}
       >
-        { label }
+        {label}
       </button>
     </div>
   );
@@ -55,15 +55,23 @@ export const TransactionHistory = (props) => {
   const { transaction, amount, date, time } = props;
 
   return (
-    <div className=" flex flex-col gap-3 pt-3">
-      <div className="flex justify-between text-sm">
-        <div>{ transaction }</div>
-        <div><span>&#8369;</span>{ amount }</div>
+    <>
+      <div className=" flex flex-col gap-3 pt-3">
+        <div className="flex justify-between text-sm">
+          <div>{transaction}</div>
+          <div>
+            <span>&#8369;</span>
+            {amount}
+          </div>
+        </div>
+        <div className="flex justify-between text-xs">
+          <span>
+            {date} {time}
+          </span>
+        </div>
       </div>
-      <div className="flex justify-between text-xs">
-        <span>{ date } { time }</span>
-      </div>
-    </div>
+      <div className="border-t border-4 border-gray-400 flex-grow"></div>
+    </>
   );
 };
 
@@ -73,12 +81,12 @@ export const Logout = (props) => {
   return (
     <div className="flex">
       <button
-        type= { type }
+        type={type}
         className="text-white font-bold py-2 px-4"
-        onClick={ onClick }
-        id={ id }
+        onClick={onClick}
+        id={id}
       >
-        { label }
+        {label}
       </button>
     </div>
   );

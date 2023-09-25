@@ -10,7 +10,7 @@ const Main = (props) => {
         <div className="flex w-full mx-auto px-6 py-8 justify-center">
           <div className="flex flex-col center">
             <BalanceCard user={ user } uuid={ uuid }/>
-            <TransactionCard />
+            <TransactionCard user={ user } uuid={ uuid }/>
           </div>
         </div>
       </main>

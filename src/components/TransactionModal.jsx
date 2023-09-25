@@ -35,7 +35,7 @@ const TransactionModal = (props) => {
   };
 
   const clearValues = () => {
-    setAmount("");
+    setAmount(0);
     setMessage("");
     setAccountRecipient("");
     onClose();
