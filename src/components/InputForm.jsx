@@ -66,3 +66,20 @@ export const TransactionHistory = (props) => {
     </div>
   );
 };
+
+export const Logout = (props) => {
+  const { label, onClick, id, type } = props;
+
+  return (
+    <div className="flex">
+      <button
+        type= { type }
+        className="text-white font-bold py-2 px-4"
+        onClick={ onClick }
+        id={ id }
+      >
+        { label }
+      </button>
+    </div>
+  );
+};

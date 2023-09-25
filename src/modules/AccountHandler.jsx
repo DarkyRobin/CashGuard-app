@@ -9,6 +9,7 @@ const generateAccountID = () => {
 export const getAccount = (uuid) => {
   const accounts = JSON.parse(localStorage.getItem("accounts") || []);
   const account = accounts.find((account) => account.uuid === uuid);
+
   if (!account) {
     const newAccount = {
       id: generateAccountID(),
@@ -17,10 +18,11 @@ export const getAccount = (uuid) => {
       status: "Active",
     };
     accounts.push(newAccount);
-    localStorage.setItem("accounts", JSON.stringify(accounts));
-    return account;
+    localStorage.setItem("accounts", JSON.stringify(accounts)); // Update local storage
+    return newAccount; // Return the newly created account
+  } else {
+    return account; // Return the found account
   }
-  return account;
 };
 
 export const validateAmount = (
@@ -37,11 +39,12 @@ export const validateAmount = (
   if (isNaN(amount) || parseFloat(amount) <= 0) {
     return { status: 0, msg: "Not a valid amount" };
   }
-
-  if (balance < amount) {
-    return { status: 0, msg: "Insufficient funds" };
+  if (operation !== "deposit") {
+    if (balance < amount) {
+      return { status: 0, msg: "Insufficient funds" };
+    }
   }
-  console.log(recipient_acct_id);
+
   if (recipient_acct_id) {
     const recipientExist = accountsArr.findIndex(
       (recipient) => recipient.id === recipient_acct_id
@@ -68,37 +71,68 @@ export const transactAccount = (
   );
 
   if (senderAccount) {
-    const updatedAccountsArr = accountsArr.map((account) => {
-      switch (operation) {
-        case "send":
-          {
-            const recipientAccount = accountsArr.find(
-              (recipient) => recipient.id === recipient_acct_id
-            );
-            console.log(recipientAccount, senderAccount);
-            senderAccount.balance -= amount;
-            recipientAccount.balance += amount;
+    switch (operation) {
+      case "send":{
+          const recipientAccount = accountsArr.find(
+            (account) => account.id === recipient_acct_id
+          );
+          // Update balances
+          senderAccount.balance -= amount;
+          recipientAccount.balance += amount;
+
+          // Update the accounts array
+          const updatedAccountsArr = accountsArr.map((account) => {
             if (account.id === senderAccount.id) {
               return senderAccount;
             } else if (account.id === recipientAccount.id) {
               return recipientAccount;
+            } else {
+              return account;
             }
-          }
-          break;
+          });
 
-        case "deposit":
-          accountsArr[senderAccount].balance = balance + amount;
-          break;
+          // Store the updated accounts array in localStorage
+          localStorage.setItem("accounts", JSON.stringify(updatedAccountsArr));
+        }
+        break;
 
-        case "withdraw":
-          accountsArr[senderAccount].balance = balance - amount;
-          break;
+      case "deposit":{
+          senderAccount.balance += amount;
+          // Update the accounts array
+          const updatedAccountsArr = accountsArr.map((account) => {
+            if (account.id === senderAccount.id) {
+              return senderAccount;
+            } else {
+              return account;
+            }
+          });
 
-        default:
-          break;
-      }
-    });
+          // Store the updated accounts array in localStorage
+          localStorage.setItem("accounts", JSON.stringify(updatedAccountsArr));
+        }
 
-    localStorage.setItem("accounts", JSON.stringify(updatedAccountsArr));
+        break;
+
+      case "withdraw":{
+          // Withdraw operation for the sender's account
+          senderAccount.balance -= amount;
+
+          // Update the accounts array
+          const updatedAccountsArr = accountsArr.map((account) => {
+            if (account.id === senderAccount.id) {
+              return senderAccount;
+            } else {
+              return account;
+            }
+          });
+
+          // Store the updated accounts array in localStorage
+          localStorage.setItem("accounts", JSON.stringify(updatedAccountsArr));
+        }
+        break;
+
+      default:
+        break;
+    }
   }
 };

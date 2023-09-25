@@ -7,7 +7,7 @@ const TransactionModal = (props) => {
   const [amount, setAmount] = useState(0);
   const [message, setMessage] = useState("");
   const [accountRecipient, setAccountRecipient] = useState("");
-  
+
   const onchangeAmount = (e) => {
     e.preventDefault();
     setAmount(e.target.value)
