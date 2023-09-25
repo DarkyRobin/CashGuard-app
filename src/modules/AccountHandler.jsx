@@ -6,6 +6,15 @@ const generateAccountID = () => {
 
   return parseFloat(accountID);
 };
+
+const autoID = (localStorageKey) => {
+  let counter = parseInt(localStorage.getItem(localStorageKey)) || 0;
+  return () => {
+    counter++;
+    return counter;
+  };
+};
+
 export const getAccount = (uuid) => {
   const accounts = JSON.parse(localStorage.getItem("accounts") || []);
   const account = accounts.find((account) => account.uuid === uuid);
@@ -23,6 +32,12 @@ export const getAccount = (uuid) => {
   } else {
     return account; // Return the found account
   }
+};
+
+export const getUser = (uuid) => {
+  const users = JSON.parse(localStorage.getItem("users") || []);
+  const user = users.find((user) => user.uuid === uuid);
+  return user;
 };
 
 export const validateAmount = (
@@ -72,7 +87,8 @@ export const transactAccount = (
 
   if (senderAccount) {
     switch (operation) {
-      case "send":{
+      case "send":
+        {
           const recipientAccount = accountsArr.find(
             (account) => account.id === recipient_acct_id
           );
@@ -93,11 +109,12 @@ export const transactAccount = (
 
           // Store the updated accounts array in localStorage
           localStorage.setItem("accounts", JSON.stringify(updatedAccountsArr));
-          TransactionLog(operation, recipientAccount, senderAccount, amount)
+          TransactionLog(operation, recipientAccount, senderAccount, amount);
         }
         break;
 
-      case "deposit":{
+      case "deposit":
+        {
           senderAccount.balance += amount;
           // Update the accounts array
           const updatedAccountsArr = accountsArr.map((account) => {
@@ -112,12 +129,12 @@ export const transactAccount = (
           localStorage.setItem("accounts", JSON.stringify(updatedAccountsArr));
 
           //Log transaction
-          
         }
 
         break;
 
-      case "withdraw":{
+      case "withdraw":
+        {
           // Withdraw operation for the sender's account
           senderAccount.balance -= amount;
 
@@ -142,31 +159,29 @@ export const transactAccount = (
 };
 
 export const TransactionLog = (operation, recipient, account, amount) => {
-  console.log(operation, recipient, account, amount)
-  const createAutoNumberIdGenerator = (localStorageKey) => {
-    let counter = parseInt(localStorage.getItem(localStorageKey)) || 0;
-  
-    return () => {
-      counter++;
-      localStorage.setItem(localStorageKey, counter.toString());
-      return counter;
-    };
-  };
-  
-  switch (operation) {
-    case 'send': {
-      
+  console.log(operation, recipient, account, amount);
+  const localStorage = "transactions";
+  const transaction_id = autoID(localStorage);
+  const transactionDate = new Date();
+  const senderAccount = getUser(account.uuid);
+  const recipientAccount = getUser(recipient.uuid);
+
+  console.log(senderAccount, recipientAccount);
+
+  const transaction = {
+    id: transaction_id(),
+    account_name: account.id,
+    recepient_name: recipient.id,
+    amount: amount,
+    date: transactionDate.toLocaleDateString(),
+    time: transactionDate.toLocaleTimeString(),
+    transaction_type: operation,
+    description: ()=> {
+      return ``
     }
-    break;
+  };
+
+  console.log(transaction);
+
   
-    case 'deeposit':
-    break;
-
-    case 'withdraw':
-    break;
-
-    default:
-      break;
-    
-  }
-}
+};

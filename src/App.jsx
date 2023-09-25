@@ -55,6 +55,7 @@ function App() {
           id: 1,
           account_id: 8459946966,
           uuid: "a0b1b08f-03c0-4892-9256-5a85d333bd9c",
+          recipient: "a0b1b08f-03c0-4892-9256-5a85d333bd9c",
           transaction_type: "deposit",
           description: "Send cash to Ranchodas",
           amount: 100,
