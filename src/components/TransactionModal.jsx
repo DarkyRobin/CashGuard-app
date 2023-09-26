@@ -3,11 +3,11 @@ import { Button, ButtonCancel, InputField } from "./InputForm";
 import { transactAccount, validateAmount } from "../modules/AccountHandler";
 
 const TransactionModal = (props) => {
-  const { isOpen, onClose, operation, currentAccount } = props;
+  const { isOpen, onClose, operation, currentAccount, updateTransactionLogs } = props;
   const [amount, setAmount] = useState(0);
   const [message, setMessage] = useState("");
   const [accountRecipient, setAccountRecipient] = useState("");
-
+  
   const onchangeAmount = (e) => {
     e.preventDefault();
     setAmount(e.target.value)
@@ -29,10 +29,12 @@ const TransactionModal = (props) => {
     //Validation status=1 is true then call function transactAccount
     if(validation.status === 1) {
       transactAccount(currentAccount.id, parseFloat(currentAccount.balance), parseFloat(amount), operation, parseFloat(accountRecipient));
+      updateTransactionLogs();
       clearValues();
       onClose();
     }
   };
+
 
   const clearValues = () => {
     setAmount(0);
@@ -41,9 +43,6 @@ const TransactionModal = (props) => {
     onClose();
   }
 
-      
-    // Call the onDeposit function to handle the deposit
-    // onTransaction(parseFloat(amount));
   return (
     <div className={`fixed inset-0 flex items-center justify-center z-50 ${ isOpen ? "block" : "hidden" }`}>
       <div className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>

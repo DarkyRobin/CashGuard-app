@@ -4,7 +4,7 @@ import { getAccount } from "../modules/AccountHandler";
 import TransactionModal from "./TransactionModal";
 
 const BalanceCard = (props) => {
-  const { user, uuid } = props;
+  const { user, uuid, updateTransactionLogs } = props;
   const account = getAccount(uuid);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedOperation, setOperation] = useState(null);
@@ -33,6 +33,7 @@ const BalanceCard = (props) => {
           onClose={ closeModal }
           operation={ selectedOperation }
           currentAccount={ account }
+          updateTransactionLogs={ updateTransactionLogs }
           />
       </div>
     </>

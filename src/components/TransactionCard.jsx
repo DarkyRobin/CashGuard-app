@@ -1,33 +1,32 @@
+/* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
-import { InputField, Button, TransactionHistory } from "./InputForm";
-import { getAccount, getTransactionLogs } from "../modules/AccountHandler";
 
 const TransactionCard = (props) => {
-  const { uuid } = props;
-  const account = getAccount(uuid);
-  const [transLogs, setTransactionLogs] = useState([]);
+  const { transaction } = props;
 
-  useEffect(() => {
-    // Fetch transaction logs when the component mounts
-    const transactionLogs = getTransactionLogs(account.id);
-    setTransactionLogs(transactionLogs);
-  }, [account.id]); 
-  
   return (
     <>
       <div className="card flex flex-col justify-center p-5 bg-white rounded-lg shadow-2xl m-4 w-80 h-auto">
         <div className="text-lg">Transaction History</div>
-        {transLogs.length === 0 ? (
+        { transaction.length === 0 ? (
           <p>No transactions</p>
         ) : (
-          transLogs.map((log) => (
-            <TransactionHistory
-              key={ log.id }
-              transaction={ log.description }
-              amount={ log.amount }
-              date={log.date}
-              time={log.time}
-            />
+          transaction.map((log) => (
+            <><div className=" flex flex-col gap-3 pt-3" key={log.id}>
+              <div className="flex justify-between text-sm">
+
+                <div>{log.description}</div>
+                <div>
+                  <span>&#8369;</span>
+                  {log.amount}
+                </div>
+              </div>
+              <div className="flex justify-between text-xs">
+                <span>
+                  {log.date} {log.time}
+                </span>
+              </div>
+            </div><div className="border-t border-4 border-gray-400 flex-grow"></div></>
           ))
         )}
       </div>

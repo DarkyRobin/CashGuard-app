@@ -85,14 +85,15 @@ export const transactAccount = (
   const senderAccount = accountsArr.find(
     (account) => account.id === account_id
   );
+  const recipientAccount = accountsArr.find(
+    (account) => account.id === recipient_acct_id
+  );
 
   if (senderAccount) {
     switch (operation) {
       case "send":
         {
-          const recipientAccount = accountsArr.find(
-            (account) => account.id === recipient_acct_id
-          );
+          
           // Update balances
           senderAccount.balance -= amount;
           recipientAccount.balance += amount;
@@ -128,8 +129,8 @@ export const transactAccount = (
 
           // Store the updated accounts array in localStorage
           localStorage.setItem("accounts", JSON.stringify(updatedAccountsArr));
+          TransactionLog(operation, [], senderAccount, amount);
 
-          //Log transaction
         }
 
         break;
@@ -150,6 +151,7 @@ export const transactAccount = (
 
           // Store the updated accounts array in localStorage
           localStorage.setItem("accounts", JSON.stringify(updatedAccountsArr));
+          TransactionLog(operation, [], senderAccount, amount);
         }
         break;
 
