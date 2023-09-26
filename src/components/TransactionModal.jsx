@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, ButtonCancel, InputField } from "./InputForm";
+import {  ButtonCancel, InputField } from "./InputForm";
 import { transactAccount, validateAmount } from "../modules/AccountHandler";
 
 const TransactionModal = (props) => {

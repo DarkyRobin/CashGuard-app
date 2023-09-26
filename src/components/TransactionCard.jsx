@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const TransactionCard = (props) => {
   const { transaction } = props;
@@ -12,7 +12,7 @@ const TransactionCard = (props) => {
           <p>No transactions</p>
         ) : (
           transaction.map((log) => (
-            <><div className=" flex flex-col gap-3 pt-3" key={log.id}>
+            <><div className=" flex flex-col gap-3 pt-3">
               <div className="flex justify-between text-sm">
 
                 <div>{log.description}</div>
