@@ -1,5 +1,5 @@
-import BalanceCard from "../components/BalanceCard";
-import BudgetTrackerCard from "../components/BudgetTrackerCard"
+import BalanceCard from "./BalanceCard";
+import BudgetTrackerCard from "./BudgetTrackerCard"
 
 const BudgetTracker = (props) => {
   const { user, uuid } = props;
