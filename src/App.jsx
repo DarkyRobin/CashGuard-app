@@ -8,6 +8,7 @@ import {
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Registration from "./pages/Registration";
+import BudgetTrackerPage from "./pages/BudgetTrackerPage";
 import "./assets/css/style.css";
 
 function App() {
@@ -70,10 +71,22 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={ loggedInUser.username ? (<Navigate to="/" />) : ( <Login setLoggedInUser={setLoggedInUser} />)}/>
-        <Route path="/signup" element={ loggedInUser.username ? (<Navigate to="/" />) : ( <Registration setLoggedInUser={setLoggedInUser} />)}/>
-        {/* <Route path="/budget-tracker" element={ loggedInUser.username ? (<Navigate to="/"/>) : (<BudgetTracker/>)}/> */}
-        <Route path="/" element={loggedInUser.username ? (<Dashboard user={loggedInUser.username} uuid={loggedInUser.uuid} />) : (<Navigate to="/login" />)}/>
+        <Route
+          path="/login"
+          element={loggedInUser.username ? <Navigate to="/" /> : <Login setLoggedInUser={setLoggedInUser} />}
+        />
+        <Route
+          path="/signup"
+          element={loggedInUser.username ? <Navigate to="/" /> : <Registration setLoggedInUser={setLoggedInUser} />}
+        />
+        <Route
+          path="/budget-tracker"
+          element={loggedInUser.username ? <BudgetTrackerPage user={ loggedInUser.username } uuid = {loggedInUser.uuid} /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/"
+          element={loggedInUser.username ? <Dashboard user={loggedInUser.username} uuid={loggedInUser.uuid} /> : <Navigate to="/login" />}
+        />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

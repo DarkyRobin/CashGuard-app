@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@apply
+
+.active-menu-item {
+  background-color: #4a90e2; /* Set your desired background color */
+  color: #fff; /* Set your desired text color */
+}
