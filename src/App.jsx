@@ -65,6 +65,20 @@ function App() {
       ];
       localStorage.setItem("transactions", JSON.stringify(transactions));
     }
+    // Check if the budgetexpense data exists in localStorage
+    if (!localStorage.getItem("budgetexpenses")) {
+      const budgetexpenses = [
+        {
+          id: 1,
+          expenseName: "Globe bills",
+          amount: 2500,
+          date: "09-20-2023",
+          time: "11:02 AM",
+          expenseCategory: "Utilities",
+        },
+      ];
+      localStorage.setItem("budgetexpenses", JSON.stringify(budgetexpenses));
+    }
   }, []);
 
   const [loggedInUser, setLoggedInUser] = useState({username:null, uuid:null});

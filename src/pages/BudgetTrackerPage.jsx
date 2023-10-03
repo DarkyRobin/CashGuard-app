@@ -18,7 +18,6 @@ const BudgetTrackerPage = (props) => {
           </div>
         </div>
       </div>
-      
     </>
   );
 };

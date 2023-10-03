@@ -1,4 +1,5 @@
 import BalanceCard from "./BalanceCard";
+import BudgetTrackerCard from "./BudgetTrackerCard";
 
 const BudgetTracker = (props) => {
   const { user, uuid } = props;
@@ -8,7 +9,7 @@ const BudgetTracker = (props) => {
         <div className="flex w-full mx-auto px-6 py-8 justify-center">
           <div className="flex flex-col center">
             <BalanceCard user={ user } uuid={ uuid } />
-            
+            <BudgetTrackerCard user={ user } uuid={ uuid }/>
           </div>
         </div>
       </main>
