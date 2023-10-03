@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,6 +8,7 @@ import {
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Registration from "./pages/Registration";
+import BudgetTrackerPage from "./pages/BudgetTrackerPage";
 import "./assets/css/style.css";
 
 function App() {
@@ -64,15 +65,42 @@ function App() {
       ];
       localStorage.setItem("transactions", JSON.stringify(transactions));
     }
+    // Check if the budgetexpense data exists in localStorage
+    if (!localStorage.getItem("budgetexpenses")) {
+      const budgetexpenses = [
+        {
+          id: 1,
+          expenseName: "Globe bills",
+          amount: 2500,
+          date: "09-20-2023",
+          time: "11:02 AM",
+          expenseCategory: "Utilities",
+        },
+      ];
+      localStorage.setItem("budgetexpenses", JSON.stringify(budgetexpenses));
+    }
   }, []);
 
   const [loggedInUser, setLoggedInUser] = useState({username:null, uuid:null});
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={ loggedInUser.username ? (<Navigate to="/" />) : ( <Login setLoggedInUser={setLoggedInUser} />)}/>
-        <Route path="/signup" element={ loggedInUser.username ? (<Navigate to="/" />) : ( <Registration setLoggedInUser={setLoggedInUser} />)}/>
-        <Route path="/" element={loggedInUser.username ? (<Dashboard user={loggedInUser.username} uuid={loggedInUser.uuid} />) : (<Navigate to="/login" />)}/>
+        <Route
+          path="/login"
+          element={loggedInUser.username ? <Navigate to="/" /> : <Login setLoggedInUser={setLoggedInUser} />}
+        />
+        <Route
+          path="/signup"
+          element={loggedInUser.username ? <Navigate to="/" /> : <Registration setLoggedInUser={setLoggedInUser} />}
+        />
+        <Route
+          path="/budget-tracker"
+          element={loggedInUser.username ? <BudgetTrackerPage user={ loggedInUser.username } uuid = {loggedInUser.uuid} /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/"
+          element={loggedInUser.username ? <Dashboard user={loggedInUser.username} uuid={loggedInUser.uuid} /> : <Navigate to="/login" />}
+        />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
